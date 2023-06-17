@@ -10,5 +10,6 @@ namespace RecycleSystem.DAL
     public class ApplicationDbContext : DbContext 
     {
         public DbSet<TypeModel> Types { get; set; }
+        public DbSet<ItemModel> Items { get; set; }
     }
 }

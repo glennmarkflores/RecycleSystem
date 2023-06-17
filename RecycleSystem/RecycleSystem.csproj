@@ -136,7 +136,12 @@
     <Compile Include="Migrations\202306170154464_Initial.designer.cs">
       <DependentUpon>202306170154464_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306170249572_AddItemsToDB.cs" />
+    <Compile Include="Migrations\202306170249572_AddItemsToDB.designer.cs">
+      <DependentUpon>202306170249572_AddItemsToDB.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\TypeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -226,6 +231,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202306170154464_Initial.resx">
       <DependentUpon>202306170154464_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306170249572_AddItemsToDB.resx">
+      <DependentUpon>202306170249572_AddItemsToDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
