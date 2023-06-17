@@ -13,7 +13,7 @@ namespace RecycleSystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "202306170416341_InitialMigration"; }
+            get { return "202306170451105_InitialMigration"; }
         }
         
         string IMigrationMetadata.Source
