@@ -127,7 +127,6 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TypeController.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -191,8 +190,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Type\Create.cshtml" />
     <Content Include="Views\Type\Delete.cshtml" />
-    <Content Include="Views\Type\Edit.cshtml" />
     <Content Include="Views\Type\List.cshtml" />
+    <Content Include="Views\Type\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

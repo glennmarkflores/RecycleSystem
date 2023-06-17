@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using RecycleSystem.DAL;
+using System.ComponentModel;
 
 namespace RecycleSystem.Models
 {
@@ -19,7 +20,10 @@ namespace RecycleSystem.Models
 
         public decimal Rate { get; set; }
 
+        [DisplayName("Minimum Kg")]
         public decimal MinKg { get; set; }
+
+        [DisplayName("Maximum Kg")]
 
         public decimal MaxKg { get; set; }
 

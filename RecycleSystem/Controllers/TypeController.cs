@@ -51,7 +51,7 @@ namespace RecycleSystem.Controllers
             {
                 db.Types.Add(typeModel);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
 
             return View(typeModel);
@@ -81,7 +81,7 @@ namespace RecycleSystem.Controllers
             {
                 db.Entry(typeModel).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             return View(typeModel);
         }
@@ -109,7 +109,7 @@ namespace RecycleSystem.Controllers
             TypeModel typeModel = db.Types.Find(id);
             db.Types.Remove(typeModel);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
         protected override void Dispose(bool disposing)
