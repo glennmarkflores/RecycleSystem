@@ -22,8 +22,8 @@ namespace RecycleSystem.Controllers
             return View(items.ToList());
         }
 
-        // GET: Item/Create
-        public ActionResult Create()
+        // GET: Item/Add
+        public ActionResult Add()
         {
             ViewBag.TypeModelId = new SelectList(db.Types, "Id", "Type");
             return View();
@@ -35,10 +35,10 @@ namespace RecycleSystem.Controllers
             return Json(rate, JsonRequestBehavior.AllowGet);
         }
 
-        // POST: Item/Create
+        // POST: Item/Add
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TypeModelId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
+        public ActionResult Add([Bind(Include = "Id,TypeModelId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
         {
             if (ModelState.IsValid)
             {

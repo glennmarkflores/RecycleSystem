@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Item", FormMethod.Post, new { id = "myForm" }))
 {
     @Html.AntiForgeryToken()
 
@@ -67,7 +67,6 @@
     <script>
         function resetForm() {
             document.getElementById("myForm").reset();
-            $('#ComputedRate').val('');
         }
 
         $(function () {

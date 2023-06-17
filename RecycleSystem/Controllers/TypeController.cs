@@ -21,16 +21,16 @@ namespace RecycleSystem.Controllers
             return View(db.Types.ToList());
         }
 
-        // GET: Type/Create
-        public ActionResult Create()
+        // GET: Type/Add
+        public ActionResult Add()
         {
             return View();
         }
 
-        // POST: Type/Create
+        // POST: Type/Add
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,Rate,MinKg,MaxKg")] TypeModel typeModel)
+        public ActionResult Add([Bind(Include = "Id,Type,Rate,MinKg,MaxKg")] TypeModel typeModel)
         {
             if (ModelState.IsValid)
             {
