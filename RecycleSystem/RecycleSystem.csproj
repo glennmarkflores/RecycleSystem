@@ -127,18 +127,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\TypeController.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202306170154464_Initial.cs" />
-    <Compile Include="Migrations\202306170154464_Initial.designer.cs">
-      <DependentUpon>202306170154464_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202306170249572_AddItemsToDB.cs" />
-    <Compile Include="Migrations\202306170249572_AddItemsToDB.designer.cs">
-      <DependentUpon>202306170249572_AddItemsToDB.cs</DependentUpon>
+    <Compile Include="Migrations\202306170343524_Initial.cs" />
+    <Compile Include="Migrations\202306170343524_Initial.designer.cs">
+      <DependentUpon>202306170343524_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ItemModel.cs" />
@@ -197,6 +194,10 @@
     <Content Include="Views\Type\Delete.cshtml" />
     <Content Include="Views\Type\List.cshtml" />
     <Content Include="Views\Type\Edit.cshtml" />
+    <Content Include="Views\Item\Create.cshtml" />
+    <Content Include="Views\Item\Delete.cshtml" />
+    <Content Include="Views\Item\Edit.cshtml" />
+    <Content Include="Views\Item\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -229,11 +230,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202306170154464_Initial.resx">
-      <DependentUpon>202306170154464_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202306170249572_AddItemsToDB.resx">
-      <DependentUpon>202306170249572_AddItemsToDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202306170343524_Initial.resx">
+      <DependentUpon>202306170343524_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -11,7 +11,7 @@ namespace RecycleSystem.Models
     {
         public int Id { get; set; }
         
-        public int RecyclableTypeId { get; set; }
+        public int TypeModelId { get; set; }
         
         public TypeModel TypeModel { get; set; }
         

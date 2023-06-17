@@ -1,0 +1,113 @@
+﻿@model RecycleSystem.Models.ItemModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit/{id}", "Item", FormMethod.Post, new { id = "myForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>RecyclableItem</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RecyclableTypeId, "Recyclable Type", htmlAttributes: new { @class = "control-label" })
+            @Html.DropDownList("RecyclableTypeId", ViewBag.RecyclableTypes as SelectList, "-- Select Recyclable Type --", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RecyclableTypeId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ItemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ItemDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Weight, "Weight", htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", id = "Weight" })
+            @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ComputedRate, "Computed Rate", htmlAttributes: new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.ComputedRate, new { @class = "form-control", @readonly = "readonly" })
+            @Html.ValidationMessageFor(model => model.ComputedRate, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="row mt-4 mb-4">
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" onclick="resetForm()" class="btn btn-primary">Reset</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function resetForm() {
+            document.getElementById("myForm").reset();
+            $('#ComputedRate').val('');
+        }
+
+        $(function () {
+            // When the Recyclable Type dropdown changes
+            $('#RecyclableTypeId').change(function () {
+                var recyclableTypeId = $(this).val();
+                var weight = $('#Weight').val(); // Get the weight value
+
+                // Make an AJAX request to fetch the rate for the selected Recyclable Type
+                $.ajax({
+                    url: '@Url.Action("GetRate", "Item")',
+                    type: 'GET',
+                    data: { recyclableTypeId: recyclableTypeId },
+                    success: function (rate) {
+                        // Compute the Computed Rate
+                        var computedRate = rate * weight;
+
+                        // Update the Computed Rate field with the calculated value
+                        $('#ComputedRate').val(computedRate);
+                    }
+                });
+            });
+
+            // When the Weight input field changes
+            $('#Weight').change(function () {
+                var recyclableTypeId = $('#RecyclableTypeId').val();
+                var weight = $(this).val();
+
+                // Make an AJAX request to fetch the rate for the selected Recyclable Type
+                $.ajax({
+                    url: '@Url.Action("GetRate", "Item")',
+                    type: 'GET',
+                    data: { recyclableTypeId: recyclableTypeId },
+                    success: function (rate) {
+                        // Compute the Computed Rate
+                        var computedRate = rate * weight;
+
+                        // Update the Computed Rate field with the calculated value
+                        $('#ComputedRate').val(computedRate);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

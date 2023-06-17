@@ -11,88 +11,100 @@ using RecycleSystem.Models;
 
 namespace RecycleSystem.Controllers
 {
-    public class TypeController : Controller
+    public class ItemController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Type
+        // GET: Item
         public ActionResult List()
         {
-            return View(db.Types.ToList());
+            var recyclableItems = db.Items.Include(r => r.TypeModel);
+            return View(recyclableItems.ToList());
         }
 
-        // GET: Type/Create
+        // GET: Item/Create
         public ActionResult Create()
         {
+            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type");
             return View();
         }
 
-        // POST: Type/Create
+        // GET: Item/GetRate
+        // Get the Rate of the selected Type
+        public ActionResult GetRate(int recyclableTypeId)
+        {
+            var rate = db.Types.Where(t => t.Id == recyclableTypeId).Select(t => t.Rate).FirstOrDefault();
+            return Json(rate, JsonRequestBehavior.AllowGet);
+        }
+
+        // POST: Item/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Type,Rate,MinKg,MaxKg")] TypeModel typeModel)
+        public ActionResult Create([Bind(Include = "Id,RecyclableTypeId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
         {
             if (ModelState.IsValid)
             {
-                db.Types.Add(typeModel);
+                db.Items.Add(itemModel);
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
-
-            return View(typeModel);
+            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
+            return View(itemModel);
         }
 
-        // GET: Type/Edit/5
+        // GET: Item/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TypeModel typeModel = db.Types.Find(id);
-            if (typeModel == null)
+            ItemModel itemModel = db.Items.Find(id);
+            if (itemModel == null)
             {
                 return HttpNotFound();
             }
-            return View(typeModel);
+            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
+            return View(itemModel);
         }
 
-        // POST: Type/Edit/5
+        // POST: Item/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Type,Rate,MinKg,MaxKg")] TypeModel typeModel)
+        public ActionResult Edit([Bind(Include = "Id,RecyclableTypeId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(typeModel).State = EntityState.Modified;
+                db.Entry(itemModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
-            return View(typeModel);
+            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
+            return View(itemModel);
         }
 
-        // GET: Type/Delete/5
+        // GET: Item/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TypeModel typeModel = db.Types.Find(id);
-            if (typeModel == null)
+            ItemModel itemModel = db.Items.Find(id);
+            if (itemModel == null)
             {
                 return HttpNotFound();
             }
-            return View(typeModel);
+            return View(itemModel);
         }
 
-        // POST: Type/Delete/5
+        // POST: Item/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            TypeModel typeModel = db.Types.Find(id);
-            db.Types.Remove(typeModel);
+            ItemModel itemModel = db.Items.Find(id);
+            db.Items.Remove(itemModel);
             db.SaveChanges();
             return RedirectToAction("List");
         }
