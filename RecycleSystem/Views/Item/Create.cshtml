@@ -12,14 +12,13 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>RecyclableItem</h4>
+        <h4>Items</h4>
         <hr />
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <div class="form-group">
             @Html.LabelFor(model => model.TypeModelId, "Recyclable Type", htmlAttributes: new { @class = "control-label" })
-            @Html.DropDownList("RecyclableTypeId", ViewBag.RecyclableTypes as SelectList, "-- Select Recyclable Type --", new { @class = "form-control" })
+            @Html.DropDownList("TypeModelId", ViewBag.RecyclableTypes as SelectList, "-- Select Recyclable Type --", new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.TypeModelId, "", new { @class = "text-danger" })
         </div>
 
@@ -43,6 +42,7 @@
             @Html.ValidationMessageFor(model => model.ComputedRate, "", new { @class = "text-danger" })
         </div>
 
+
         <div class="row mt-4 mb-4">
             <div class="col-md-1">
                 <button type="submit" class="btn btn-success">Create</button>
@@ -58,6 +58,7 @@
     @Html.ActionLink("Back to List", "List")
 </div>
 
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
@@ -69,7 +70,7 @@
 
         $(function () {
             // When the Recyclable Type dropdown changes
-            $('#RecyclableTypeId').change(function () {
+            $('#TypeModelId').change(function () {
                 var recyclableTypeId = $(this).val();
                 var weight = $('#Weight').val(); // Get the weight value
 
@@ -90,7 +91,7 @@
 
             // When the Weight input field changes
             $('#Weight').change(function () {
-                var recyclableTypeId = $('#RecyclableTypeId').val();
+                var recyclableTypeId = $('#TypeModelId').val();
                 var weight = $(this).val();
 
                 // Make an AJAX request to fetch the rate for the selected Recyclable Type

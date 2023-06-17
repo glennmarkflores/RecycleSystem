@@ -18,19 +18,17 @@ namespace RecycleSystem.Controllers
         // GET: Item
         public ActionResult List()
         {
-            var recyclableItems = db.Items.Include(r => r.TypeModel);
-            return View(recyclableItems.ToList());
+            var items = db.Items.Include(i => i.TypeModel);
+            return View(items.ToList());
         }
 
         // GET: Item/Create
         public ActionResult Create()
         {
-            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type");
+            ViewBag.TypeModelId = new SelectList(db.Types, "Id", "Type");
             return View();
         }
 
-        // GET: Item/GetRate
-        // Get the Rate of the selected Type
         public ActionResult GetRate(int recyclableTypeId)
         {
             var rate = db.Types.Where(t => t.Id == recyclableTypeId).Select(t => t.Rate).FirstOrDefault();
@@ -40,7 +38,7 @@ namespace RecycleSystem.Controllers
         // POST: Item/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,RecyclableTypeId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
+        public ActionResult Create([Bind(Include = "Id,TypeModelId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +46,8 @@ namespace RecycleSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
-            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
+
+            ViewBag.TypeModelId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
             return View(itemModel);
         }
 
@@ -64,14 +63,14 @@ namespace RecycleSystem.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
+            ViewBag.TypeModelId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
             return View(itemModel);
         }
 
         // POST: Item/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,RecyclableTypeId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
+        public ActionResult Edit([Bind(Include = "Id,TypeModelId,Weight,ComputedRate,ItemDescription")] ItemModel itemModel)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +78,7 @@ namespace RecycleSystem.Controllers
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
-            ViewBag.RecyclableTypeId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
+            ViewBag.TypeModelId = new SelectList(db.Types, "Id", "Type", itemModel.TypeModelId);
             return View(itemModel);
         }
 
